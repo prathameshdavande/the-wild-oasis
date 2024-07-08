@@ -13,6 +13,7 @@ import AppLayout from "./ui/AppLayout";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import ProtectedRoutes from "./ui/ProtectedRoutes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,7 +31,13 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoutes>
+                <AppLayout />
+              </ProtectedRoutes>
+            }
+          >
             {/* <Route index element={<DashBoard />} /> */}
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<DashBoard />} />
@@ -59,7 +66,7 @@ function App() {
 
           // Default options for specific types
           success: {
-            duration: 3000,
+            duration: 2000,
           },
           error: {
             duration: 5000,
